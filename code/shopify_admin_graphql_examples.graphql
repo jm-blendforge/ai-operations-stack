@@ -1,0 +1,49 @@
+# Real Shopify Admin GraphQL operations run against the live store via an MCP connector.
+# Each solved a specific operational problem (see README).
+
+# 1. Audit every delivery profile, zone, and rate — found the 'General' profile's
+#    domestic zone had no usable rate and prints were stranded in the wrong profile.
+query DeliveryProfileAudit {
+  deliveryProfiles(first: 10) { edges { node {
+    name default productVariantsCount { count }
+    profileLocationGroups { locationGroupZones(first: 20) { edges { node {
+      zone { name countries { code { countryCode } } }
+      methodDefinitions(first: 20) { edges { node { name active
+        rateProvider { __typename
+          ... on DeliveryRateDefinition { price { amount currencyCode } }
+          ... on DeliveryParticipant { carrierService { name } } } } } } } } } } } } }
+}
+
+# 2. Detect zero-weight variants (the reason UPS/FedEx carrier rates failed).
+query VariantWeights($id: ID!) {
+  product(id: $id) { variants(first: 50) { edges { node { title
+    inventoryItem { measurement { weight { value unit } } requiresShipping } } } }
+    pageInfo { hasNextPage endCursor } } }   # 99-variant products need pagination (50/page)
+}
+
+# 3. Abandoned checkouts with recovery URL + customer — powers the personal cart-recovery workflow.
+query AbandonedCarts {
+  abandonedCheckouts(first: 20, query: "created_at:>=2026-09-21T00:00:00Z", sortKey: CREATED_AT, reverse: true) {
+    edges { node { createdAt abandonedCheckoutUrl totalPriceSet { presentmentMoney { amount } }
+      customer { id firstName lastName email }
+      lineItems(first: 10) { edges { node { title quantity variantTitle } } } } } }
+}
+
+# 4. Make the advertised team the default variant WITHOUT touching the live ad
+#    (reorders option values; variants follow). Avoided resetting Meta's learning phase.
+mutation ReorderOptionValues($productId: ID!, $options: [OptionReorderInput!]!) {
+  productOptionsReorder(productId: $productId, options: $options) { product { id } userErrors { field message } }
+}
+
+# 5. Log a recovery outreach on the customer record (note + tags) so every touch is traceable.
+mutation LogRecovery($id: ID!, $note: String!, $tags: [String!]!) {
+  customerUpdate(input: { id: $id, note: $note, tags: $tags }) { customer { id tags } userErrors { field message } }
+}
+
+# 6. Bulk-fix image alt text (accessibility + accuracy) with a single fileUpdate.
+mutation FixAltText($files: [FileUpdateInput!]!) {
+  fileUpdate(files: $files) { files { alt } userErrors { field message } }
+}
+
+# 7. Enabled digital wallets check — confirmed Shop Pay / Apple Pay / Google Pay before diagnosing conversion.
+query Wallets { shop { paymentSettings { supportedDigitalWallets } } }

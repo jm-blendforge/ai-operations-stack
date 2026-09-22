@@ -8,6 +8,7 @@ This pack exists to let a technical reviewer validate hands-on AI and integratio
 - **In this repo** — code and configurations executed against live systems during the work.
 - **On the operator's machine** — agent artifacts that run locally (described, not reproduced here).
 - **HealthBlendRX** — documented work; code available on request.
+- **Client engagement (freight brokerage)** — the full strategy deliverable, anonymized, under Option 1 Integration Partners.
 
 ---
 
@@ -78,12 +79,16 @@ Runbooks are the "source code" of agent orchestration: they encode the formula, 
 - Batch Shopify mutations (weights on 967+ variants, 288 variants moved across delivery profiles) and the Meta creative/asset pipeline (Shopify CDN → Meta image library → carousel creatives).
 - Two Windows scheduled tasks ("Blackforge Content Engine" midday/evening) created by the owner after the agent correctly declined to create unattended agents itself.
 
-## 6. HealthBlendRX artifacts (available on request / live demo)
-- GTM tag code: bilingual EN/ES copy injection surviving SPA re-renders (MutationObserver + `pushState` interception); trust elements; checkout modifications.
-- Close CRM workflow fix (duplicate trigger — misconfigured lifecycle stage; exit condition added).
-- python-pptx generator that rebuilt an 86-page business plan into a 47-slide editable deck.
+## 6. HealthBlendRX / TuSaludRX — see `/healthblendrx`
+A second, independent business with its own integration architecture: WordPress/Elementor → Google Tag Manager (bilingual copy injection that survives SPA re-renders, trust elements, Contentsquare) → Zapier → Close CRM (lifecycle workflows) → email/SMS, with Meta Ads built from the ground up and AI-assisted deliverables (python-pptx). Architecture map, descriptions, and sanitized code samples live in `/healthblendrx`. Healthcare context, so everything there is architecture-level: no patient or lead data, no credentials, no vendor names.
 
 ---
 
-## 7. Outcomes (operational — no revenue claims)
+## 7. Client engagement — AI & automation strategy for a freight brokerage — see `/freight-brokerage-ai-strategy`
+Prepared under **Option 1 Integration Partners** for a brokerage running Revenova TMS natively on Salesforce: current-state analysis, a payment-platform integration path, a lead-generation tool directory, a 24/7 load-tracking exception engine, nine automation/AI use cases (load matching, rate quoting, document intelligence, close acceleration, carrier risk scoring, fuel-surcharge automation, AI comms, AR intelligence, bank reconciliation), a business case, and a four-phase 38-week roadmap. The full deliverable is included as a self-contained HTML page (client name withheld) — open it in a browser, or via GitHub Pages: `https://jm-blendforge.github.io/ai-operations-stack/freight-brokerage-ai-strategy/AI_Automation_Strategy_Freight_Brokerage.html` This is the enterprise-architecture side of the same practice: stability → integration → AI, on one data layer.
+
+## 8. Systems assessment & build-vs-buy — see `SYSTEMS_ASSESSMENT_BUILD_VS_BUY.md`
+The recurring engagement across all three businesses: inventory the landscape, activate what's already owned, pin the constraints (plan tiers, license add-ons, data thresholds, governance), buy before build, build thin, defer enterprise middleware, and sequence stability → integration → AI. The document lists sixteen real decisions — options weighed, what was chosen, why — across a Salesforce/TMS enterprise stack, a Shopify commerce stack, and a WordPress/CRM telehealth stack.
+
+## 9. Outcomes (operational — no revenue claims)
 Catalog of 136+ listings rewritten in one pass with zero errors · 243 variants launched under an IP-safe scheme · checkout failure root-caused and fixed across 967+ variants · cost per add-to-cart cut by up to 48% · session-to-cart conversion lifted more than 4x · autonomous content pipeline shipped end to end · email automation consolidated to one owner per trigger · daily charted operations brief · local delivery and retargeting live.

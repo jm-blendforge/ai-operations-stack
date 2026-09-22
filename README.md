@@ -15,16 +15,16 @@ This pack exists to let a technical reviewer validate hands-on AI and integratio
 
 ```mermaid
 flowchart LR
-  J[Owner / approver<br/>decisions · approvals · raw footage]
-  C[Claude — orchestrator<br/>analysis · strategy · structured prompts · daily brief]
-  D[Claude Code &quot;Dash&quot;<br/>agentic desktop agent: browser · files · scripts]
-  S[(Shopify Admin<br/>GraphQL API)]
-  M[(Meta Marketing API<br/>+ Pixel)]
-  G[(Gmail · Google Drive)]
-  B[Browser-only surfaces<br/>Klaviyo · Judge.me · Meta Business Suite · Marketplace]
-  F[(Local filesystem<br/>content inbox · STL library · logs)]
-  T[Windows Task Scheduler<br/>Mon / Wed / Fri / Sun]
-  P[Facebook · Instagram]
+  J["Owner / approver<br/>decisions · approvals · raw footage"]
+  C["Claude — orchestrator<br/>analysis · strategy · structured prompts · daily brief"]
+  D["Claude Code (Dash)<br/>agentic desktop agent: browser · files · scripts"]
+  S[("Shopify Admin<br/>GraphQL API")]
+  M[("Meta Marketing API<br/>+ Pixel")]
+  G[("Gmail · Google Drive")]
+  B["Browser-only surfaces<br/>Klaviyo · Judge.me · Meta Business Suite · Marketplace"]
+  F[("Local filesystem<br/>content inbox · design library · logs")]
+  T["Windows Task Scheduler<br/>Mon / Wed / Fri / Sun"]
+  P["Facebook · Instagram"]
 
   J -->|directs| C
   C -->|MCP connectors| S
@@ -36,7 +36,7 @@ flowchart LR
   D -->|ffmpeg · PowerShell · Python| F
   T -->|launches| D
   D -->|approval email| J
-  J -->|"approved"| D
+  J -->|approved| D
   D -->|publish| P
   C -->|morning brief w/ charts| J
 ```
